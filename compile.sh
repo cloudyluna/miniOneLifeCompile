@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 set -e
 AUTORUN=$(cat AUTORUN)
 PLATFORM=$(cat PLATFORM_OVERRIDE)
@@ -18,7 +18,7 @@ cd OneLife
 if [ -d $DISCORD_SDK_PATH ]; then
 	./configure $PLATFORM "$MINOR_GEMS_PATH" --discord_sdk_path "${DISCORD_SDK_PATH}"
 else
-	./configure $PLATFORM
+	./configure  $PLATFORM
 fi
 cd gameSource
 if [[ $PLATFORM == 5 ]]; then export PATH="/usr/i686-w64-mingw32/bin:${PATH}"; fi
@@ -47,8 +47,7 @@ cp ../OneLife/server/wordList.txt .
 
 cp ../OneLifeData7/dataVersionNumber.txt .
 
-# copying SDL.dll, clearCache script and discord_game_sdk library
-if [[ $PLATFORM == 5 ]] && [ ! -f SDL.dll ]; then cp ../OneLife/build/win32/SDL.dll .; fi
+# clearCache script and discord_game_sdk library
 if [[ $PLATFORM == 5 ]] && [ ! -f clearCache.bat ]; then cp ../OneLife/build/win32/clearCache.bat .; fi
 
 if [ -d $DISCORD_SDK_PATH ]; then
@@ -57,8 +56,8 @@ if [ -d $DISCORD_SDK_PATH ]; then
 	# linux: copy discord_game_sdk.so into the output folder
 	if [[ $PLATFORM == 1 ]]; then
 		if [[ ! -f ./discord_game_sdk.so ]]; then
-			sudo cp $DISCORD_SDK_PATH/lib/x86_64/discord_game_sdk.so ./
-			sudo chmod a+r ./discord_game_sdk.so
+			cp $DISCORD_SDK_PATH/lib/x86_64/discord_game_sdk.so ./
+			chmod a+r ./discord_game_sdk.so
 		fi
 	fi
 fi

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 set -e
 AUTORUN=$(cat AUTORUN)
 PLATFORM=$(cat PLATFORM_OVERRIDE)
